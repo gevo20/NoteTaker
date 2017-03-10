@@ -6,8 +6,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="NotesItemTemplate">
+            <RelativePanel Margin="30">
+            <!--<Grid Height="110" Width="480" Margin="10" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>-->
+                <Border x:Name="border" Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="60" Height="60">
+                    <Image Height="60" Width="60"/>
+                </Border>
+                <!--StackPanel Grid.Column="1" Margin="10,0,0,0">-->
+                <TextBlock x:Name="title" Text="{Binding Title}" RelativePanel.RightOf="border" Margin="10,0,0,0" TextWrapping="NoWrap" 
+                           Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBlock Text="{Binding Created}" RelativePanel.AlignLeftWith="title" RelativePanel.Below="title" 
+                           Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="NoWrap" Margin="10,0,0,0"/>
+                <!--</StackPanel>
+            </Grid>-->
+            </RelativePanel>
+        </DataTemplate>
+    </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{Binding Source={StaticResource NotesSampleDataSource}}">
+        <SplitView IsPaneOpen="True" DisplayMode="Inline">
+            <SplitView.Pane>
+                <ListView x:Name="NotesListView" ItemTemplate="{StaticResource NotesItemTemplate}" ItemsSource="{Binding Notes}" />
+            </SplitView.Pane>
 
+        </SplitView>
     </Grid>
 </Page>
